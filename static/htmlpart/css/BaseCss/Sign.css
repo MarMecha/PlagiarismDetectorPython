@@ -1,0 +1,197 @@
+/* Container for error messages */
+.simple-message-container {
+    margin: 2px ;
+    padding: 2px;
+    color: #ff0019;
+
+}
+
+/* Individual message styling */
+.simple-message {
+    margin: 0;
+    font-size: 0.875rem;
+    position: relative;
+    z-index: 1070;
+    
+}
+.row {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.signinsignupco {
+    height: 350px;
+    background-color: transparent;
+    width: 100%;
+    
+    position: relative;
+    max-width: 410px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: var(--radius-xs);
+    
+}
+
+.signinsignupco__profile-image {
+    height: 100%;
+    max-width: 100%;
+    position: absolute;
+    user-select: none; /* Prevent text selection */
+    pointer-events: none; /* Disable mouse interactions */
+    -moz-user-drag: none; /* Prevent drag on Mozilla browsers */
+    -ms-user-drag: none; /* Prevent drag on Microsoft browsers */
+}
+
+.signinsignupco__content {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.signinsignupco__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.signinsignupco__welcome-text {
+    position: relative;
+    bottom: 20px;
+    max-width: fit-content;
+    text-transform: capitalize;
+    align-items: center;
+}
+
+.signinsignupco__email-input {
+    color: var(--black_900) !important;
+    position: relative;
+    width: 300px;
+    background-color: var(--gray_100) !important;
+    border-radius: 34px !important;
+
+}
+
+.signinsignupco__password-input {
+    color: var(--black_900) !important;
+    position: relative;
+    width: 300px;
+    background-color: var(--gray_100) !important;
+    border-radius: 34px !important;
+}
+
+.signinsignupco__actions {
+    align-self: center;
+}
+
+.signinsignupco__signin-button {
+    color: var(--white_a700) !important;
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: var(--purple_700_a3) !important;
+    border-radius: 44px !important;
+}
+
+.signinsignupco__confirmation {
+    height: fit-content;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.signinsignupco__signup-text {
+    letter-spacing: 2.8px;
+    text-transform: capitalize;
+}
+
+.signinsignupco__signup-text-span {
+    color: var(--white_a700);
+    font-size: small;
+    align-items: center; /* Align text and link inline */
+    justify-content: center; /
+}
+
+.signinsignupco__signup-text-span-1 {
+    color: var(--pink_200);
+    font-size: small;
+    position: relative;
+    display: inline-block; /* Prevent layout break */
+}
+
+
+/* -----------------  Sign Up -----------------  */
+
+.signinsignupco__Yes-button {
+    color: var(--white_a700) !important;
+    position: relative;
+    background-color: var(--purple_700_a3) !important;
+    border-radius: 44px !important;
+}
+
+.signinsignupco__No-button {
+    color: var(--white_a700) !important;
+    position: relative;
+    background-color: var(--purple_700_a3) !important;
+    border-radius: 44px !important;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* ------------Sign up teacher---------- */
+.signUpTeacher {
+    background-color: transparent;
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 410px;
+    height: 100%;
+    border-radius: var(--radius-xs);
+}
+
+.signUpTeacher__content {
+    height: 515px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.professionco__text--teacher-status {
+    color: var(--pink_200) !important;
+    font-size: medium;
+    position: relative;
+}
+
+
+
+.logout-button {
+    background: none;
+    border: none;
+    color: #ffffff;  /* White text */
+    cursor: pointer;
+    padding: 11px 16px;
+    font-size: 25px;     /* Larger icon size (from 25px) */
+    transition: transform 0.2s ease;
+}
+
+.logout-button:hover {
+    color: #e980d7;  
+    transform: scale(1.1);
+}
+
+.logout-form {
+    display: 1.2em;
+}

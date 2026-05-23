@@ -1,0 +1,812 @@
+{% load static %}
+<!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Home Discover, Check and Secure Your Texts</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#000000" />
+        <meta
+            name="description"
+            content="Join our community to discover text thieves with a click. Sign in or sign up to discover text thieves with a click, or verify the originality of your content. Start checking now!"
+        />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/index.css'%}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/font.css'%}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/styles.css'%}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/components.css'%} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/home.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/BaseCss/Upload.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/BaseCss/Sign.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/BaseCss/Results.css' %} " />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+
+        <!-- CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <!-- JS -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+    </head>
+    <body>
+        <!-- home page section -->
+        <div class="teacher">
+            <header class="header">
+                <img src="{% static 'htmlpart/public/images/img_header_logo.png' %}" alt="Logo Image" class="header__logo" />
+                <div class="header-name-container">
+                    <div class="name-logout-group">
+                        <h2 class="teacher-name">
+                            {{ first_name }} {{ last_name }}
+                        </h2>
+                        <form action="{% url 'signOut' %}" method="post" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-button" aria-label="Log Out">
+                                <i class="fas fa-door-open"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </header>
+
+            <p class="introdaction">Here are all your uploaded files for comparison and your history of PLchecks </p>
+            
+            <div class="hero__container">
+                <div class="controller__buttons-container">
+                    <div class="page__buttons">
+                        <button class="page__button active" id="data-button">Data</button>
+                        <button class="page__button" id="history-button">History</button>
+                    </div>
+                    <form method="POST" action="{% url 'add_files' %}">
+                        {% csrf_token %}
+                        <div class="upload__button-container">
+                            <button id="deleteSelectedFiles" class="upload__button">
+                                Delete Selected Files
+                            </button>
+                            <button class="upload__button" id="upload-Button">+ Upload</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!--.................................. Compare Files ..................................-->
+                <div class="data__container">
+                    <!-- Compare Files Form -->
+                    <form method="POST" action="{% url 'TeacherPage' %}">
+                        <div class="compare-files-form">
+                            <div class="select__file__container">
+                                {% csrf_token %}
+                                <label for="file_id1">Select File 1:</label>
+                                <select name="file_id1" id="file_id1">
+                                    {% for file in files %}
+                                        <option value="{{ file.id }}" data-filename="{{ file.file.name }}">{{ file.file.name|slice:"6:" }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" name="file_name" id="file_name" />
+                            </div>
+                            <div class="compare__file__container">
+                                <button type="button" id="openFileModal">Compare to</button>
+                                <input type="text" id="file_id2_display"  readonly />
+                                <input type="hidden" name="file_ids" id="file_ids" />
+                                
+                            </div>   
+                            
+                            <div class="compare_button_container">
+                                <button class="upload__button" id="compare-Button" type="submit">Compare</button>
+                            </div>
+                        </div>
+                        {% if messages %}
+                                    <div class="simple-message-container">
+                                        {% for message in messages %}
+                                            <p class="simple-message">{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                            {% endif %}
+                    </form>
+
+                    <hr class="section-divider">
+                    
+                    <div class="data__content" id="data__content">
+                        <div class="data__table">
+                            <!-- Column headers -->
+                            <div class="data__row header">
+                                <div class="data__column name">|Your Files</div>
+                            </div>
+                            <div class="file-list">
+                                {% for file in files %}
+                                <div class="file-item">
+                                    <div class="data__column name" colspan="4">
+                                        <a href="{{ file.file.url }}" target="_blank" class="file_names">
+                                            {{ file.file.name|slice:"6:" }}
+                                        </a>
+                                    </div>
+                                    <label class="file-selector">
+                                        <input type="checkbox" name="file_ids" value="{{ file.id }}" class="file-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                {% empty %}
+                                <div class="data__row">
+                                    <div class="data__column name">No files uploaded yet.</div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="history__content" id="history__content">
+                        <div class="scrollable-container-history">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Primary File</th>
+                                        <th>Comparison Files</th>
+                                        <th>Percentage</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in history_results %}
+                                        <tr>
+                                            <td>{{ result.file1_name|slice:":" }}</td>
+                                            <td>{{ result.get_comparison_filenames }}</td>
+                                            <td>{{ result.percentage|floatformat:0  }}%</td>
+                                            <td>{{ result.created_at }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--.................................. Plagiarism Results modal ..................................-->
+        <div id="PlgResultsModal" class="ResultsModal">
+            <div class="popup-content">
+                <div class="inner-container">
+                    <img src="{% static 'htmlpart/public/images/img_header_logo.png' %}" alt="Logo" class="Results-logo">
+                    
+                    <div class="header-content">
+                        <span id="selectedFileName" class="header-File-Name">{{ file1_name|slice:"6:" }}</span>
+                        
+                        {% if overall_percentage is not None %}
+                        <div class="overall-result">
+                            {{ overall_percentage|floatformat:0 }}%  
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Buttons container -->
+                    <div class="header-buttons">
+                        {% if highlighted_pdf_url %}
+                        <a href="{{ highlighted_pdf_url }}" class="download-button" download>
+                        ⬇️ Download PDF
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- New Bottom Section: Two Child Containers -->
+                <div class="bottom-container">
+                    <!-- Left Section (4/5 width) -->
+                    <div class="left-container">
+                        <div class="scrollable-content">
+                            <!-- Inside the plagiarism results modal -->
+                            {% if file1_url %}
+                            <div id="pdfViewer">
+                                {% if highlighted_pdf_url %}
+                                <iframe 
+                                    src="{{ highlighted_pdf_url }}" 
+                                    style="width: 100%; height: 600px;"
+                                ></iframe>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    
+                    </div>
+                    <!-- Right Section (1/5 width) -->
+                    <div class="right-container">
+                        <div class="header-container">
+                            Match Results
+                        </div>
+                        <div class="results-container">
+                            <div class="scrollable-container-Results">
+                                {% if results %}
+                                    <ul class="comparison-results">
+                                        {% for result in results %}
+                                            {% if result.percentage_taken > 0 %}
+                                                <li class="result-item" style="border-left: 5px solid {{ result.color }}; margin: 8px">
+                                                    <div class="file-name-container">
+                                                        <!-- RANK -->
+                                                        <span class="rank-number" style="color: black;">
+                                                            {{ result.position }}.
+                                                        </span>
+
+                                                        <div class="color-swatch" style="background-color: {{ result.color }};"></div>
+
+                                                        <span class="file-name" style="color: {{ result.color }};">
+                                                            {{ result.comparison_file_name|slice:"6:"|truncatechars:20 }}
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="similarity-percentage">
+                                                        {% if result.percentage_taken < 1 %}
+                                                            &lt;1%
+                                                        {% else %}
+                                                            {{ result.percentage_taken|floatformat:0 }}%
+                                                        {% endif %}
+                                                    </div>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+
+                                    {% if results|length == 0 %}
+                                        <p>No plagiarism detected.</p>
+                                    {% endif %}
+                                {% else %}
+                                    <p>No plagiarism detected.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--.................................. File Selection for comparison modal ..................................-->
+
+        <div id="fileSelectionModal" class="modal">
+            <div class="chooseFile">
+                <h3>Select a File</h3>
+                <!-- Add the "All" checkbox in the top-right corner -->
+                <div class="select-all-container">
+                    <label for="selectAllCheckbox" class="select-all-label">
+                        <span>All</span>
+                        <input type="checkbox" id="selectAllCheckbox" class="select-all-checkbox">
+                    </label>
+                </div>
+                <div class="modal-file-list">
+                    {% for file in files %}
+                        <div class="file-item" data-file-id="{{ file.id }}">
+                            <a href="{{ file.file.url }}" target="_blank" class="file_names">
+                                <span class="file-name">{{ file.file.name|slice:"6:" }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="nextButtonContainer">
+                    <button id="nextButton" class="signinsignupco__signin-button ui button purple_700_a3 size-xs fill round">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!--.................................. File Upload modal ..................................-->
+        <div id="fileUploadModal" class="modal" > 
+            <div class="modal-content">
+                <div class="row">
+                    <div class="fileUpload">
+                        <img src="{% static 'htmlpart/public/images/img_Signbg.png' %}" alt="Profileimage" class="signinsignupco__profile-image" />
+                        <form method="POST" action="{% url 'add_files' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="fileUpload__content">
+                                <!--======= Messages =======-->
+                                {% if messages %}
+                                    <div class="simple-message-container">
+                                        {% for message in messages %}
+                                            <p class="simple-message">{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="custom-file-upload">
+                                    <label for="file-upload" class="custom-file-upload ui input gray_100 size-xs fill round">
+                                        <img src="{% static 'htmlpart/public/images/upload-icon.png' %}" alt="Upload Icon" class="upload-icon" />
+                                        <span id="file-name">Choose a file</span>
+                                    </label>
+                                    <input id="file-upload" type="file" name="files" multiple webitdirectory hidden />
+                                </div>
+                                <div class="signinsignupco__actions">
+                                    <button type="submit" name="file_submit" class="signinsignupco__signin-button ui button purple_700_a3 size-xs fill round">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--=========================  Modal Styles ================-->
+        <style>
+
+            .select2-container--default .select2-selection--single {
+                border: 0px solid #9873af !important;
+                border-radius: 4px;
+                padding: 1.5px 10px;
+                font-size: 16px;
+                font-family: inherit;
+                font-weight: normal !important;
+                color: #9873af;
+            }
+
+            /* Χρώμα του επιλεγμένου κειμένου */
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                color: #9873af !important;
+            }
+
+            /* Βελάκι επιλογής (dropdown arrow) */
+            .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                border-color: #9873af transparent transparent transparent;
+            }
+
+            /* Όταν ανοίγει η λίστα */
+            .select2-dropdown {
+                border: 0.5px solid #9873af !important;
+            }
+
+            .select2-results__option--highlighted[aria-selected] {
+                background-color: #9873af !important;
+                color: white !important;
+            }
+
+            /* Εφαρμογή πλάτους */
+            .select2-container {
+                width: 100% !important;
+            }
+
+            .modal {
+                display: none; 
+                position: fixed; 
+                z-index: 2; 
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+            }
+
+            .modal-content {
+                margin: auto;
+                position: relative;
+                top: 10%; /* Center vertically */
+                max-width: 410px;  
+            }
+
+            .ResultsModal {
+                display: none; 
+                position: fixed; 
+                z-index: 1000; 
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.5);
+                /* Change to flex when visible */
+                justify-content: center;
+                align-items: center;
+            }
+
+            .popup-content {
+                background: transparent;  /* Changed from transparent */
+                width: 1400px;
+                max-width: 90%;
+                min-height: 400px;  /* Instead of fixed height */
+                border-radius: 10px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                position: relative;
+                padding: 0px;  /* Add some padding */
+                margin: 0px;  /* Prevent touching screen edges */
+            }
+
+            
+        </style>
+
+        <!--============= JavaScript for data =====================-->
+        <script>
+            // Select the buttons and content sections
+            const dataButton = document.getElementById('data-button');
+            const historyButton = document.getElementById('history-button');
+            const dataContent = document.getElementById('data__content');
+            const historyContent = document.getElementById('history__content');
+            
+             //-------upload file button ------//
+            const uploadButton = document.getElementById("upload-Button");
+            const fileUploadModal = document.getElementById("fileUploadModal");
+            
+            // Select the file input and the span for displaying the file name
+            const fileInput = document.getElementById('file-upload');
+            const fileNameDisplay = document.getElementById('file-name');
+
+            // Listen for changes to the file input
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    // Display the selected file's name
+                    fileNameDisplay.textContent = fileInput.files[0].name;
+                } else {
+                    // Reset the text if no file is selected
+                    fileNameDisplay.textContent = 'Choose a file';
+                }
+            });
+
+            // ------------------------------------------ delete files ------------------------------------//
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const deleteButton = document.getElementById('deleteSelectedFiles');
+                
+                deleteButton.addEventListener('click', function() {
+                    const checkboxes = document.querySelectorAll('.file-checkbox:checked');
+                    if (checkboxes.length === 0) {
+                        alert('Please select at least one file to delete.');
+                        return;
+                    }
+            
+                    if (!confirm('Are you sure you want to delete the selected files?')) {
+                        return;
+                    }
+            
+                    const fileIds = Array.from(checkboxes).map(checkbox => checkbox.value);
+                    
+                    fetch('/delete_files/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                        body: `file_ids=${encodeURIComponent(fileIds.join(','))}`
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            alert('Error deleting files');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error deleting files');
+                    });
+                });
+            
+                // CSRF token helper function
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            if (cookie.startsWith(name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+            });
+
+
+            // ------------------------------------------ Upload files ------------------------------------//
+
+            uploadButton.onclick = function() {
+                console.log("Upload button clicked"); // Debugging output
+                console.log("File Upload Modal:", fileUploadModal); // Check if the modal is correctly referenced
+                event.preventDefault(); // Prevent default behavior, if necessary
+                fileUploadModal.style.display = "block";
+            };
+
+            // Close the modal when clicking outside of the container
+            window.onclick = function(event) {
+                let fileUploadModal = document.getElementById('fileUploadModal');
+                if (event.target === fileUploadModal) {
+                    fileUploadModal.style.display = 'none';
+                }
+            }; 
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                let showModal = "{{ show_modal|default:'False' }}";
+                if (showModal === "True") {
+                    document.getElementById("PlgResultsModal").style.display = "block";
+                }
+            });
+        
+            function closeModal() {
+                document.getElementById("PlgResultsModal").style.display = "none";
+            }
+
+
+            //------------------------------------------- controller__buttons ----------------------------------//
+
+            // Update your tab switching JavaScript to this:
+            document.addEventListener('DOMContentLoaded', function() {
+                const dataButton = document.getElementById('data-button');
+                const historyButton = document.getElementById('history-button');
+                const dataContent = document.getElementById('data__content');
+                const historyContent = document.getElementById('history__content');
+
+                function showDataTab() {
+                    dataContent.style.display = 'flex';
+                    historyContent.style.display = 'none';
+                    dataContent.classList.add('data-active');
+                    dataButton.classList.add('active');
+                    historyButton.classList.remove('active');
+                    
+                    // Force scrollbar recalculation
+                    setTimeout(() => {
+                        dataContent.style.overflow = 'hidden';
+                        dataContent.style.overflow = '';
+                    }, 50);
+                }
+
+                function showHistoryTab() {
+                    dataContent.style.display = 'none';
+                    historyContent.style.display = 'block';
+                    dataContent.classList.remove('data-active');
+                    historyButton.classList.add('active');
+                    dataButton.classList.remove('active');
+                }
+
+                dataButton.addEventListener('click', showDataTab);
+                historyButton.addEventListener('click', showHistoryTab);
+
+                // Initialize with data tab visible
+                showDataTab();
+            });
+            
+            //------------------------------------ Results Modal ------------------------------------------------//
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const modal = document.getElementById("PlgResultsModal");
+                let pdfViewerInitialized = false;
+            
+                // Show modal first
+                if (window.location.hash === '#results' && modal) {
+                    modal.style.display = "flex";
+                    history.replaceState(null, null, ' ');
+                    
+                    // Wait for modal layout to stabilize
+                    setTimeout(initializePDFViewer, 100);
+                }
+                
+                async function initializePDFViewer() {
+                    if (pdfViewerInitialized) return;
+                    pdfViewerInitialized = true;
+            
+                    const url = "{{ highlighted_pdf_url}}";
+                    const pdfViewer = document.getElementById('pdfViewer');
+                    console.log("Debug - PDF URL:", "{{ file1_url|escapejs }}");
+                    console.log("Debug - PDF Viewer Element:", document.getElementById('pdfViewer'));
+                    if (!url || !pdfViewer) {
+                        console.error("Missing PDF URL or viewer element");
+                        return;
+                    }
+            
+                    try {
+                        // Clear previous content
+                        pdfViewer.innerHTML = '<div class="loading">Loading PDF...</div>';
+                        
+                        const pdf = await pdfjsLib.getDocument(url).promise;
+                        pdfViewer.innerHTML = '';  // Clear loading message
+            
+                        // Get visible container dimensions
+                        const containerWidth = pdfViewer.offsetWidth - 40; // Account for padding
+                        const firstPage = await pdf.getPage(1);
+                        const viewport = firstPage.getViewport({ scale: 1 });
+                        const scale = containerWidth / viewport.width;
+                        
+                        // Render all pages with consistent scale
+                        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                            const page = await pdf.getPage(pageNum);
+                            const scaledViewport = page.getViewport({ scale });
+                            
+                            const canvas = document.createElement('canvas');
+                            canvas.className = 'pdf-page-canvas';
+                            pdfViewer.appendChild(canvas);
+                            
+                            const context = canvas.getContext('2d');
+                            canvas.width = scaledViewport.width;
+                            canvas.height = scaledViewport.height;
+                            
+                            await page.render({
+                                canvasContext: context,
+                                viewport: scaledViewport
+                            }).promise;
+                        }
+                    } catch (error) {
+                        console.error("PDF rendering failed:", error);
+                        pdfViewer.innerHTML = '<div class="error">Failed to load PDF</div>';
+                    }
+                }
+                function closeModalAndRedirect() {
+                    if (modal) modal.style.display = "none";
+                    pdfViewerInitialized = false;
+                }
+            
+                // Close modal when clicking outside
+                window.addEventListener("click", (event) => {
+                    if (event.target === modal) closeModalAndRedirect();
+                });
+            });
+            
+
+            $(document).ready(function () {
+                const fileId1Select = $('#file_id1');
+
+                // Ενεργοποίηση Select2
+                fileId1Select.select2({
+                    placeholder: "Αναζήτηση αρχείου...",
+                    width: '100%'
+                });
+
+                const openModalButton = document.getElementById("openFileModal");
+                const fileSelectionModal = document.getElementById("fileSelectionModal");
+                const nextButton = document.getElementById("nextButton");
+                const fileIdsInput = document.getElementById("file_ids");
+                const fileId2Display = document.getElementById("file_id2_display");
+                const selectAllCheckbox = fileSelectionModal.querySelector("#selectAllCheckbox");
+                const fileItems = fileSelectionModal.querySelectorAll(".file-item");
+
+                // ---------- Αφαίρεση File 1 από modal επιλογές ----------
+                function updateFileVisibility() {
+                    const excludedFileId = fileId1Select.val();
+                    fileItems.forEach(item => {
+                        item.style.display = "block";
+                        if (item.dataset.fileId === excludedFileId) {
+                            item.style.display = "none";
+                            item.classList.remove("selected");
+                        }
+                    });
+                    updateSelectAllState();
+                }
+
+                // ---------- Ενημέρωση Select2 (αφαίρεση File 1 από dropdown) ----------
+                fileId1Select.on("change", function () {
+                    const selectedId = $(this).val();
+
+                    // Εμφάνισε όλα τα options
+                    $('#file_id1 option').show();
+
+                    // Απόκρυψε το επιλεγμένο option
+                    $(`#file_id1 option[value="${selectedId}"]`).hide();
+
+                    // Επανεκκίνηση Select2 για να ανανεωθεί το dropdown
+                    fileId1Select.select2({
+                        placeholder: "Αναζήτηση αρχείου...",
+                        width: '100%'
+                    });
+
+                    updateFileVisibility();
+                });
+
+                // ---------- Άνοιγμα modal ----------
+                openModalButton.addEventListener("click", function () {
+                    fileSelectionModal.style.display = "flex";
+                });
+
+                // ---------- Κλείσιμο modal όταν κάνεις κλικ εκτός ----------
+                window.addEventListener("click", function (event) {
+                    if (event.target === fileSelectionModal) {
+                        fileSelectionModal.style.display = "none";
+                    }
+                });
+
+                // ---------- Επιλογή αρχείου ----------
+                function toggleSelection(fileItem) {
+                    fileItem.classList.toggle("selected");
+                    updateSelectAllState();
+                }
+
+                // ---------- Επιλογή αρχείου με click ----------
+                fileItems.forEach(fileItem => {
+                    let clickTimeout;
+
+                    fileItem.addEventListener("click", function (event) {
+                        if (fileItem.style.display === "none") return;
+
+                        event.preventDefault();
+
+                        if (clickTimeout) {
+                            clearTimeout(clickTimeout);
+                            clickTimeout = null;
+                            const fileLink = fileItem.querySelector("a");
+                            if (fileLink) {
+                                window.open(fileLink.href, "_blank");
+                            }
+                        } else {
+                            clickTimeout = setTimeout(() => {
+                                toggleSelection(fileItem);
+                                clickTimeout = null;
+                            }, 200);
+                        }
+                    });
+                });
+
+                // ---------- Select all functionality ----------
+                selectAllCheckbox.addEventListener("change", function () {
+                    const selectAll = selectAllCheckbox.checked;
+                    fileItems.forEach(fileItem => {
+                        if (fileItem.style.display !== "none") {
+                            fileItem.classList.toggle("selected", selectAll);
+                        }
+                    });
+                    updateSelectAllState();
+                });
+
+                // ---------- Ενημέρωση του checkbox "All" ----------
+                function updateSelectAllState() {
+                    const visibleFiles = Array.from(fileItems).filter(item =>
+                        item.style.display !== "none"
+                    );
+                    const allSelected = visibleFiles.length > 0 &&
+                        visibleFiles.every(item => item.classList.contains("selected"));
+                    selectAllCheckbox.checked = allSelected;
+                    selectAllCheckbox.indeterminate = !allSelected &&
+                        visibleFiles.some(item => item.classList.contains("selected"));
+                }
+
+                // ---------- Click στο Next ----------
+                nextButton.addEventListener("click", function () {
+                    const selectedFiles = Array.from(fileItems)
+                        .filter(fileItem =>
+                            fileItem.style.display !== "none" &&
+                            fileItem.classList.contains("selected")
+                        )
+                        .map(fileItem => fileItem.dataset.fileId);
+
+                    if (selectedFiles.length === 0) {
+                        alert("Please select at least one file first.");
+                        return;
+                    }
+
+                    const selectedFileNames = Array.from(fileItems)
+                        .filter(fileItem =>
+                            fileItem.style.display !== "none" &&
+                            fileItem.classList.contains("selected")
+                        )
+                        .map(fileItem => fileItem.querySelector(".file-name").textContent);
+
+                    fileIdsInput.value = selectedFiles.join(",");
+                    fileId2Display.value = selectedFileNames.join(", ");
+                    fileSelectionModal.style.display = "none";
+                });
+
+                // ---------- Clear επιλογών όταν κάνεις κλικ εκτός ----------
+                document.body.addEventListener("click", (event) => {
+                    if (!event.target.closest(".file-item") && !event.target.closest(".select-all-container")) {
+                        document.querySelectorAll(".file-item.selected").forEach(selectedElement => {
+                            selectedElement.classList.remove("selected");
+                        });
+                        updateSelectAllState();
+                    }
+                });
+
+                // ---------- Εκκίνηση: αποκρύπτει το file 1 ----------
+                updateFileVisibility();
+            });
+
+            //------------------------------- to reopen modal when someone makes a mistake --------------------------------//
+            document.addEventListener("DOMContentLoaded", function () {
+                const showModal = "{{ show_modal }}";
+                if (showModal === "File") {
+                    document.getElementById("fileUploadModal").style.display = "block";
+                }
+            });
+
+            // Function to clear error messages in all modals
+            function clearErrorMessage() {
+                const errorMessageContainers = document.querySelectorAll('.simple-message-container');
+                errorMessageContainers.forEach(container => {
+                    container.innerHTML = ''; // Clear the error message
+                });
+            } 
+            
+        </script>
+    </body>
+</html>

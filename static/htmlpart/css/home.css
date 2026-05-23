@@ -1,0 +1,581 @@
+.teacher{
+    height: 1060px;
+    background-color: var(--deep_purple_300_9e);
+    background-image: url(../public/images/img_home.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding: 88px 56px;
+}
+
+.hero__container{
+    margin-top: 60px;
+}
+.introdaction{
+    color: #754996;
+    padding-top: 20px;
+    
+}
+
+.header-name-container {
+    display: flex;
+    justify-content: flex-end; /* Align group to the right */
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.name-logout-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between name and button */
+}
+
+.teacher-name {
+    margin: 0; /* Remove default margins */
+    font-size: 1rem; /* Adjust size as needed */
+    color: #ffffff;
+}
+
+/* ---------- page controll buttons ----------- */
+.controller__buttons-container{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;           
+    margin-bottom: 0px;           
+}
+
+.page__buttons{
+    display: flex;                /* Aligns the Data and History buttons horizontally */
+    gap: 0px;                    /* Adds space between the two buttons */
+}
+
+.page__button{
+    background-color: transparent;    /* Light gray background to blend with the container */
+    color: #754996; 
+    height: 70px;
+    font-size: 20px;          /* Adjust font size */
+    font-weight: bold;                  /* Dark text for contrast */
+    border: none;       /* Light border to separate the buttons */
+    border-top-left-radius:  25px;           /* Rounded corners */
+    border-top-right-radius:  25px;           /* Rounded corners */
+    padding: 6px 30px 20px 30px;  /* Adjust top and bottom padding (top 4px, bottom 8px) */
+    cursor: pointer;              /* Pointer cursor on hover */
+    transition: all 0.2s ease-in-out; /* Smooth transitions */
+    position: relative;            /* For the bump effect */
+    z-index: 1;
+}
+
+.page__button.active {
+    background-color: #ffffff; /* Green background for the active button */
+    cursor: default;
+}
+
+.page__button:not(.active):hover {
+    background-color: #98A0E6; /* Slightly darker gray on hover */
+}
+
+/* -------Upload Button --------- */
+.upload__button-container{
+    text-align: center;
+    display: flex;    
+    gap: 10px;        /* Enables flexible positioning */
+    justify-content: flex-end; /* Aligns the button to the right */
+    margin-right: 20px;
+    margin-bottom: 23px;
+
+}
+
+.upload__button{
+    background-color: #98A0E6; 
+    color: #754996;             
+    font-size: 16px;          
+    font-weight: bold;        
+    padding: 10px 20px;       
+    border: none;             
+    border-radius: 25px;       
+    cursor: pointer;          
+    transition: all 0.3s ease-in-out;
+}
+
+.upload__button:hover{
+    background-color: #FFFFFF; 
+}
+
+.upload__button:active{
+    background-color: #FFFFFF;
+}
+
+/* ---------- data container ------------- */
+
+.data__container{
+    background-color: white;
+    height: 740px;
+    padding: 20px; 
+    border-radius: 25px; 
+    margin-top: 0px;
+    position: relative;
+    z-index: 2;
+    margin-top: -20px;
+    @media (max-width: 768px) {
+        .data__container {
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+}
+
+.compare-files-form{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;           
+    padding: 20px;
+}
+
+.select__file__container {
+    color: #815b9e;
+    display: flex; /* Align elements in a single row */
+    align-items: center; /* Vertically center all items */
+    gap: 5px; /* Small spacing between label and dropdown */
+    width: 45%;
+    overflow: hidden; /* Hide the overflowed text */
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.select__file__container label {
+    white-space: nowrap; /* Prevents the label from wrapping to a new line */
+}
+
+.select__file__container select {
+    display: inline-block; /* Keeps the dropdown inline */
+    width: auto; /* Adjusts the dropdown size to fit its content */
+    vertical-align: middle; /* Aligns with text */
+    text-overflow: ellipsis;
+
+
+}
+#file_id1 {
+    flex-grow: 1; /* Allows input to take available space */
+    max-width: 60%; /* Ensures it doesn't exceed the container */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." when text is too long */
+    white-space: nowrap;
+    padding: 8px;
+}
+
+.compare__file__container{
+    color: #815b9e;
+    position: relative;
+    left: 100px;
+    display: flex;
+    align-items: center; /* Vertically center */
+    justify-content: flex-start; /* Align items to the left */
+    width: 40%;
+    gap: 10px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.compare__file__container button {
+    font-weight: bold; /* Make the button text bold */
+    padding: 8px 12px; /* Add some padding for a better look */
+    color: #815b9e;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-block; 
+    text-align: center
+}
+
+
+#file_id2_display {
+    flex-grow: 1; /* Allows input to take available space */
+    max-width: 60%; /* Ensures it doesn't exceed the container */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." when text is too long */
+    white-space: nowrap;
+    padding: 8px;
+}
+
+.compare_button_container{
+    text-align: center;
+    display: flex;    
+    gap: 10px;        
+    justify-content: flex-end; /* Aligns the button to the right */
+    position: relative; /* Ensures it's positioned relative to its normal flow */
+    z-index: 10;
+}
+
+
+.chooseFile{
+    position: relative;
+    top: 10%;
+    background-color: white ;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px ;
+    padding: 20px;
+    overflow-y: auto; 
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chooseFile h3{
+    color: #815b9e;
+    width: 100%;
+    text-align: center;
+    margin-top: 0;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #9873af;
+}
+
+.modal-file-list {
+    flex-grow: 1; /* Allows the file list to take up remaining space */
+    overflow-y: auto; /* Enables scrolling if content overflows */
+    margin-bottom: 20px; /* Space between file list and button */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." when text is too long */
+    padding: 8px;
+}
+
+.modal-file-list .file-item {
+    margin-bottom: 15px; /* Add space between each file item */
+}
+
+.select-all-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* Style for the "All" label */
+.select-all-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #6A1B9A; /* Purple color to match your theme */
+}
+
+/* Style for the checkbox */
+.select-all-checkbox {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* Style for selected file items */
+.file-item.selected {
+    background-color: #F3E5F5;
+}
+
+.nextButtonContainer {
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.section-divider {
+    border: none;
+    height: 2px;
+    background-color: #ac90c2; /* Adjust color to match your theme */
+    margin: 20px 0;
+}
+
+
+
+
+
+
+.data__content {
+    height: calc(100vh - 200px); /* Adjust based on your header/footer height */
+    display: flex;
+    flex-direction: column;
+}
+
+.file_names{
+    color: #815b9e;
+    font-family: sans-serif;
+    text-shadow:  0px  0px 0 rgb(255, 255, 255),  
+    0px  0px 0 rgb(255, 255, 255),  
+    0px  0px 0 rgb(255, 255, 255),  
+    0px  0px 0 rgb(255, 255, 255);
+}
+
+/* Grid container for the table */
+.data__table {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.data__row.header {
+    position: relative;
+    padding-right: 40px; /* Match checkbox space */
+}
+
+.data__row.header:after {
+    content: "✓";
+    color: transparent; /* Hide visual content */
+    position: absolute;
+    right: 15px;
+    width: 18px;
+}
+
+/* Styling for each row */
+.data__row {
+    display: contents; /* Makes the row behave like a collection of cells */
+}
+
+/* Styling for each column */
+.data__column {
+    padding: 10px;
+    background-color: #ffffff;
+    color: #9873af;
+    font-size: 16px;
+    overflow: hidden; /* Hide the overflowed text */
+    text-overflow: ellipsis;
+}
+
+.data__column.name {
+    flex-grow: 1;
+    padding-right: 40px; /* Space for checkbox */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Header styling */
+
+
+/* Align header text to the left and ensure uniform padding */
+.data__row.header .data__column {
+    text-align: left;
+    padding-left: 10px; /* Adds padding for spacing */
+}
+
+/* Ensuring consistent left alignment for all columns */
+
+
+.data__column.name{
+    text-align: left; /* Left-aligned content for these columns */
+    padding-left: 10px; /* Padding for consistency */
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 40px;
+    padding: 8px 0;
+}
+
+.file-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 600px; /* Adjust as needed */
+    padding-right: 8px;
+}
+
+.file-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.file-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.file-list::-webkit-scrollbar-thumb {
+    background: #9873af;
+    border-radius: 3px;
+}
+
+.file-list::-webkit-scrollbar-thumb:hover {
+    background: #9873af;
+}
+
+
+.teacher__content{
+    max-width: 1272px;
+    width: 100%;
+    
+}
+
+.navbar__item--image{
+    height: 38px;
+    width: 38px;
+    object-fit: contain;
+    user-select: none; /* Prevent text selection */
+    pointer-events: none; /* Disable mouse interactions */
+    -moz-user-drag: none; /* Prevent drag on Mozilla browsers */
+    -ms-user-drag: none; /* Prevent drag on Microsoft browsers */
+}
+
+.header__menu-item--signin {
+    letter-spacing: 2.8px;
+}
+
+
+.home{
+    height: 1024px;
+    background-color: var(--deep_purple_300_9e);
+    background-image: url(../public/images/img_home.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding: 88px 56px;
+    @media only screen and (max-width: 1050px) {
+        height: auto;
+        padding: 20px;
+    }
+}
+
+
+
+.section {
+    margin-bottom: 96px;
+    gap: 156px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media only screen and (max-width: 1050px) {
+        gap: 117px;
+    }
+
+    @media only screen and (max-width: 550px) {
+        gap: 78px;
+    }
+}
+
+.teacher__header{
+    margin-left: 12px;
+    display: flex;
+    align-self: stretch;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+    }
+
+    @media only screen and (max-width: 550px) {
+        flex-direction: column;
+    }
+}
+
+.header {
+    margin-left: 12px;
+    display: flex;
+    align-self: stretch;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    @media only screen and (max-width: 1050px) {
+        margin-left: 0px;
+    }
+
+    @media only screen and (max-width: 550px) {
+        flex-direction: column;
+    }
+    
+}
+
+.header__logo {
+    height: 44px;
+    width: 142px;
+    object-fit: contain;
+    user-select: none; /* Prevent text selection */
+    pointer-events: none; /* Disable mouse interactions */
+    -moz-user-drag: none; /* Prevent drag on Mozilla browsers */
+    -ms-user-drag: none; /* Prevent drag on Microsoft browsers */
+}
+
+.header__menu{
+    margin-bottom: 4px !important;
+    gap: 64px;
+    align-self: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    @media only screen and (max-width: 550px) {
+        gap: 20px;
+    }   
+}
+
+
+.section__content {
+    margin-left: auto;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    max-width: 1340px;
+    width: 100%;
+    margin-right: auto;
+    @media only screen and (max-width: 1050px) {
+        flex-direction: column;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.content__column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @media only screen and (max-width: 1050px) {
+        align-self: stretch;
+    }
+}
+
+.column__title {
+    letter-spacing: 8.96px;
+    text-transform: capitalize;
+    width: 92%;
+    line-height: 77px;
+    @media only screen and (max-width: 1050px) {
+        width: 100%;
+    }
+}
+
+.column__subtitle {
+    color: var(--purple_700_a3) !important;
+    letter-spacing: 3.36px;
+}
+
+.column__button {
+    color: var(--white_a700) !important;
+    margin-top: 20px;
+    padding-left: 34px;
+    padding-right: 34px;
+    background-color: var(--purple_700_a3) !important;
+    height: 102px;
+    border-radius: 50px !important;
+}
+
+
+.content__image{
+    height: 550px;
+    width: 42%;
+    object-fit: contain;
+    user-select: none; /* Prevent text selection */
+    pointer-events: none; /* Disable mouse interactions */
+    -moz-user-drag: none; /* Prevent drag on Mozilla browsers */
+    -ms-user-drag: none; /* Prevent drag on Microsoft browsers */
+}
+

@@ -1,0 +1,23 @@
+:root{
+    
+    /*------Color variables---*/
+    --deep_purple_300_9e: #967bcd9e;
+    --gray_800: #492256;
+    --purple_700_a3: #710fa9a3;
+    --white_a700: #ffffff;
+    --black_900_33: #00000033;
+    --cyan_200: #97e3e3;
+    --gray_100: #eff4f7;
+    --indigo_500_99: #5355bd99;
+    --pink_200: #fa95c7;
+
+
+    /*------Border radius variables------*/
+    --radius-xs--home--: 50px;
+
+    /* ------Sign In styles---------- */
+    --radius-xs: 28px;
+    --radius-sm: 15px;
+    --radius-md: 44px;
+    
+}

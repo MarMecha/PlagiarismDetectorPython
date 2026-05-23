@@ -1,0 +1,474 @@
+.inner-container {
+    width: 100%;     /* Make this container take full width of its parent */
+    height: 100px;    /* Fixed height of 100px */
+    background: linear-gradient(145deg, rgb(187, 184, 235) 0%, #5d2f71 60%,#7956bf 100%); /* Subtle light gradient */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Strong drop shadow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 70%;
+    flex: 1;
+}
+
+.header-File-Name {
+    font-weight: bold;
+    font-family: var(--radius-sm);
+    color: #fad1ff;
+    font-size: larger;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+    margin-left: 250px;
+}
+
+.overall-result {
+    font-weight: bold;
+    font-family: var(--radius-sm);
+    color: #ffffff;
+    font-size: larger;
+    white-space: nowrap;
+}
+
+.Results-logo {
+    height: 30px;
+    width: auto;
+    margin-right: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(220, 104, 209);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 1;
+}
+
+.close-btn:hover {
+    color: #ffffff;
+}
+
+
+/* Add save button styles */
+.save-btn {
+    font-weight: bold;
+    position: absolute;
+    top: 38px;
+    right: 60px; /* Position to the left of close button */
+    background: rgb(172, 85, 203);
+    border: none;
+    font-size: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.save-btn:hover {
+    color: rgb(200, 124, 227);
+}
+
+.save-btn i { /* If using icon fonts */
+    font-size: 18px;
+}
+
+.bottom-container {
+    display: flex;
+    width: 100%;
+    height: 500px;
+}
+
+/* Left section (4/5 width) */
+.left-container {
+    width: 75%;
+    background-color: #e0e0e0;
+    padding: 15px;
+    overflow: hidden;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollable-content {
+    flex-grow: 1; /* Ensures it fills the container */
+    overflow-y: auto; /* Enables vertical scroll only when needed */
+    overflow-x: hidden; /* Ensures no horizontal scroll */
+    
+}
+
+#pdfViewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers all PDF pages */
+    justify-content: center;
+    width: 100%;
+}
+
+.scrollable-content pre {
+    white-space: pre-wrap; /* Wraps text properly */
+    word-wrap: break-word; /* Forces long words to break */
+    overflow-wrap: break-word; /* Ensures wrapping in all cases */
+    max-width: 100%;
+}
+
+.pdf-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: auto;
+}
+
+.pdf-page-container {
+    position: relative;
+    margin: 10px auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.canvas-wrapper {
+    position: relative;
+}
+
+.highlight-overlay {
+    position: absolute;
+    background: rgba(255, 255, 0, 0.3);
+    pointer-events: none;
+}
+#highlightedPdfContainer {
+    pointer-events: none; /* Allows interaction with underlying PDF */
+}
+
+.overlay {
+    opacity: 0.7; /* Adjust transparency level */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/* Right section (1/5 width) */
+.right-container {
+    width: 30%;
+    background-color: #c0c0c0;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.header-container {
+    width: 100%;
+    height: 40px; /* Adjust size as needed */
+    background: linear-gradient(145deg, #b95fc7, #3a0b4e); /* Subtle light gradient */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Strong drop shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+/* Results container style */
+.results-container {
+    max-height: 460px;
+    padding: 10px;
+    background-color: #ddd;
+    border: 1px solid #c0c0c0;
+    display: flex;
+    flex-direction: column;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.comparison-results {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 10px; */
+    font-size: 16px;
+}
+
+.file-name-container {
+    flex: 1;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis */
+    margin-right: 5px; /* Add spacing between file name and percentage */
+}
+
+.file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 590px; /* Account for checkbox space */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+.rank-number {
+    margin-right: 8px;
+    font-weight: bold;
+    min-width: 20px;
+    display: inline-block;
+}
+
+.similarity-percentage {
+    font-weight: bold;
+    color: #000000; /* Blue color for percentage */
+}
+
+.scrollable-container-Results {
+    max-height: 460px!important; /* Adjust this value based on your needs */
+    overflow-y: auto;
+}
+
+/* Custom scrollbar styling */
+.scrollable-container-Results::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-container-Results::-webkit-scrollbar-thumb {
+    background: #946eb2;
+    border-radius: 4px;
+}
+
+.scrollable-container-Results::-webkit-scrollbar-thumb:hover {
+    background: #815b9e;
+}
+
+
+
+.file-selector {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Push to right */
+    padding-right: 15px;
+}
+
+.file-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    margin: 0;
+}
+
+.checkmark {
+    display: block;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+}
+
+.file-checkbox:checked ~ .checkmark {
+    background-color: #b95fc7;
+    border-color: #b95fc7;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.file-checkbox:checked ~ .checkmark:after {
+    display: block;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 8px 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Add these styles to your existing CSS */
+.modal .chooseFile {
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+    height: 100%;
+    padding: 20px; /* Add padding around modal content */
+}
+
+.modal-file-list {
+    flex: 1;
+    overflow-y: auto;
+    margin: 10px 0;
+    padding: 0 15px 0 0; /* Right padding for scrollbar */
+    position: relative; /* For absolute positioning children */
+}
+
+/* Scrollbar styling to match your theme */
+.modal-file-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-file-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.modal-file-list::-webkit-scrollbar-thumb {
+    background: #815b9e; /* Matches your purple theme */
+    border-radius: 3px;
+}
+
+.modal-file-list::-webkit-scrollbar-thumb:hover {
+    background: #6a4a7e;
+}
+
+.select-all-container {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+    padding: 10px 0;
+}
+
+
+.download-button {
+    background-color: #98A0E6;; 
+    padding: 6px 12px;
+    color: #754996;             
+    font-size: 16px;          
+    font-weight: bold;        
+    padding: 10px 20px;       
+    border: none;             
+    border-radius: 25px;       
+    cursor: pointer;          
+    transition: all 0.3s ease-in-out;
+}
+
+.download-button:hover {
+    background-color: #d4c4df;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.download-button:active{
+    background-color: #FFFFFF;
+}
+
+#history__content {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    
+    /* New scrollable container styles */
+    max-height: 550px; /* Adjust based on your needs */
+    overflow-y: auto;
+}
+
+#history__content table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Crucial for controlling column widths */
+}
+
+#history__content th, 
+#history__content td {
+    border: 1px solid #815b9e;
+    color: #ffffff;
+    text-align: left;
+    height: 50px;
+    padding: 8px 12px; /* Add padding for better spacing */
+}
+
+#history__content th {
+    background-color: #946eb2;
+    width: 30%; /* Set column widths */
+}
+
+#history__content td {
+    color: #815b9e;
+    font-family: sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 0; /* Required for text truncation in tables */
+}
+
+/* Specific column width for file name column */
+#history__content td:first-child {
+    width: 30%; /* Adjust this percentage based on your needs */
+}
+
+#history__content tr {
+    height: 40px;
+}
+
+#history__content::-webkit-scrollbar {
+    width: 6px;
+}
+
+#history__content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+#history__content::-webkit-scrollbar-thumb {
+    background: #815b9e;
+    border-radius: 3px;
+}
+
+#history__content::-webkit-scrollbar-thumb:hover {
+    background: #6a4a7e;
+}
+
+.scrollable-container {
+    max-height: 660px; /* 700px - 40px header space */
+    overflow-y: auto;
+    margin-top: 40px; /* Space for sticky header */
+}
+
+#history__content thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #946eb2;
+}

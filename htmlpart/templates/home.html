@@ -1,0 +1,430 @@
+{% load static %}
+<!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Home Discover, Check and Secure Your Texts</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#000000" />
+        <meta
+            name="description"
+            content="Join our community to discover text thieves with a click. Sign in or sign up to discover text thieves with a click, or verify the originality of your content. Start checking now!"
+        />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/index.css'%}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/font.css'%}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/styles.css'%}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/components.css'%} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/home.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'htmlpart/css/BaseCss/Sign.css' %} " />
+    </head>
+    <body>
+        <!-- home page section -->
+        <div class="home">
+            <!-- navigation section -->
+            <div class="section">
+                <header class="header">
+                    <img src="{% static 'htmlpart/public/images/img_header_logo.png' %}" alt="Logo Image" class="header__logo" />
+                    <ul class="header__menu">
+                        <li>
+                            <button id="signinButton" class="header__menu-item ui heading size-heading-home">Sign in</button>
+                        </li>
+                        <li>
+                            <button id="signupButton" class="header__menu-item ui heading size-heading-home">Sign up</button>
+                        </li>
+                    </ul>
+                </header>
+
+                <!-- hero section -->
+                <div class="section__content">
+                    <div class="content__column">
+                        <h1 class="column__title ui heading size-headings-home">
+                            Discover all the Plagiarized Texts with PLSPY!
+                        </h1>
+                        <h2 class="column__subtitle ui heading size-textxs">Or check if your text is suspicious.</h2>
+                        <button id="checkNowButton" class="column__button ui button-home purple_700_a3 size-xs-home fill round" data-switch-modal="signinModal">Check Now</button>
+                    </div>
+                    <img src="{% static 'htmlpart/public/images/img_spacespycat.png' %}" alt="Feature Image" class="content__image" />
+                </div>
+            </div>
+        </div>
+
+        <!--=============== Sign IN ===================-->
+        <div id="signinModal" class="modal {% if show_signIn_modal %}show{% endif %}" style="{% if show_signIn_modal %}display: block;{% else %}display: none;{% endif %} "> 
+            <div class="modal-content">
+                <div class="row">
+                    <div class="signinsignupco">
+                        <img src="{% static 'htmlpart/public/images/img_Signbg.png' %}" alt="Profileimage" class="signinsignupco__profile-image" />
+                        <form method="POST" action="{% url 'signIn' %}">
+                            {% csrf_token %}
+                            <div class="signinsignupco__content">
+                                <!--======= Messages =======-->
+                                {% if messages %}
+                                    <div class="simple-message-container">
+                                        {% for message in messages %}
+                                            <p class="simple-message">{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <h1 class="signinsignupco__welcome-text ui heading size-headings">welcome back!</h1>
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="uni_Mail" placeholder="Enter your email" type="email" />
+                                </label>
+                                <label class="signinsignupco__password-input ui input gray_100 size-xs fill round">
+                                    <input name="password" placeholder="Enter your password" type="password" />
+                                </label>
+                                <div class="signinsignupco__actions">
+                                    <button type="submit"class="signinsignupco__signin-button ui button purple_700_a3 size-xs fill round">
+                                        Sign in
+                                    </button>
+                                </div>
+                                <div class="signinsignupco__confirmation">
+                                    <h2 class="signinsignupco__signup-text ui heading size-heading-home">
+                                        <span class="signinsignupco__signup-text-span"> if you don't have an account&nbsp;</span>
+                                        <a href="signupModal" id="goToSignup" class="signinsignupco__signup-text-span-1" data-switch-modal="signupModal">Sign up!</a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!---=====================  Sign Up  =======================-->
+        <div id="signupModal" class="modal"> 
+            <div class="modal-content">
+                <div class="row-one">
+                    <div class="row">
+                        <div class="signinsignupco">
+                            <img src="{% static 'htmlpart/public/images/img_Signbg.png' %}" alt="Profile Image" class="signinsignupco__profile-image" />
+                            <div class="signinsignupco__content">
+                                <h1 class="signinsignupco__welcome-text ui heading size-headings">are you a teacher?</h1>
+                                <div class="signinsignupco__actions">
+                                    <button id="yesButton" class="signinsignupco__Yes-button ui button purple_700_a3 size-xs fill round">YES</button>
+                                </div>
+                                <div class="signinsignupco__actions">
+                                    <button id="noButton" class="signinsignupco__No-button ui button purple_700_a3 size-xs fill round ">NO</button>
+                                </div>
+                                <div class="signinsignupco__confirmation">
+                                    <h2 class="signinsignupco__signup-text ui heading size-heading-home">
+                                        <span class="signinsignupco__signup-text-span"> if you Already have an account&nbsp;</span>
+                                        <a href="signinModal" id="goToSignin" class="signinsignupco__signup-text-span-1" data-switch-modal="signinModal">Sign in!</a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--=================Teacher's registration section ==================-->
+        <div id="teacherSignUpModal" class="modal {% if show_teacher_modal %}show{% endif %}" style="{% if show_teacher_modal %}display: block;{% else %}display: none;{% endif %}"  > 
+            <div class="modal-content">
+                <div class="row">
+                    <div class="signUpTeacher" >
+                        <img src="{% static 'htmlpart/public/images/img_SignUpbg.png' %}" alt="Profile Image" class="signinsignupco__profile-image" />
+                        <form method="POST" action="{% url 'signUp' %}">
+                            {% csrf_token %}
+                            <div class="signUpTeacher__content">
+                                <!--======= Messages =======-->
+                                {% if messages %}
+                                    <div class="simple-message-container">
+                                        {% for message in messages %}
+                                            <p class="simple-message">{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="first_name" placeholder="First Name" type="text" />
+                                </label>
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="last_name" placeholder="Last Name" type="text" />
+                                </label>
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="university" placeholder="Enter University" type="text" />
+                                </label>
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="uni_Mail" placeholder="Enter your Uni - email" type="email" />
+                                </label>                                
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="password" placeholder="Enter your password" type="password" />
+                                </label>
+                                <div class="signinsignupco__actions">
+                                    <button type="submit" name="teacher_submit" class="signinsignupco__signin-button ui button purple_700_a3 size-xs fill round">
+                                        Sign Up
+                                    </button>
+                                </div>
+                                <div class="signinsignupco__confirmation">
+                                    <h2 class="signinsignupco__signup-text ui heading size-heading-home">
+                                        <span class="signinsignupco__signup-text-span"> if you Already have an account&nbsp;</span>
+                                        <a href="signinModal" id="teacherGoToSignin" class="signinsignupco__signup-text-span-1" data-switch-modal="signinModal">Sign in!</a>
+                                    </h2>
+                                </div>
+                                <li>
+                                    <button id="teacherGoToStudent" class="professionco__text--teacher-status ui heading size-heading" data-switch-modal="studentSignUpModal">
+                                        I am a student
+                                    </button>
+                                </li>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--===================Student's registration section =================-->
+        <div id="studentSignUpModal" class="modal {% if show_student_modal %}show{% endif %}" style="{% if show_student_modal %}display: block;{% else %}display: none;{% endif %}"> 
+            <div class="modal-content">
+                <div class="row">
+                    <div class="signUpTeacher">
+                        <img src="{% static 'htmlpart/public/images/img_SignUpbg.png' %}" alt="Profile Image" class="signinsignupco__profile-image" />
+                        <form method="POST" action="{% url 'signUp' %}">
+                            {% csrf_token %}
+                            <div class="signUpTeacher__content">
+                                <!--======= Messages =======-->
+                                {% if messages %}
+                                    <div class="simple-message-container">
+                                        {% for message in messages %}
+                                            <p class="simple-message">{{ message }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="first_name" placeholder="First Name" type="text" />
+                                </label>
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="last_name" placeholder="Last Name" type="text" />
+                                </label>
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="university" placeholder="Enter University" type="text" />
+                                </label>
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="uni_Mail" placeholder="Enter your Uni - email" type="email" />
+                                </label>                                
+                                <label class="signinsignupco__email-input ui input gray_100 size-xs fill round">
+                                    <input name="password" placeholder="Enter your password" type="password" />
+                                </label>
+                                <div class="signinsignupco__actions">
+                                    <button type="submit" name="student_submit" class="signinsignupco__signin-button ui button purple_700_a3 size-xs fill round">
+                                        Sign Up
+                                    </button>
+                                </div>
+                                <div class="signinsignupco__confirmation">
+                                    <h2 class="signinsignupco__signup-text ui heading size-heading-home">
+                                        <span class="signinsignupco__signup-text-span"> if you Already have an account&nbsp;</span>
+                                        <a href="signinModal" id="studentGoToSignin" class="signinsignupco__signup-text-span-1" data-switch-modal="signinModal">Sign in!</a>
+                                    </h2>
+                                </div>
+                                <li>
+                                    <button id="studentGoToTeacher" class="professionco__text--teacher-status ui heading size-heading" data-switch-modal="teacherSignUpModal">
+                                        I am a teacher
+                                    </button>
+                                </li>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=========================  Modal Styles ================-->
+        <style>
+            .modal {
+                display: none; 
+                position: fixed; 
+                z-index: 1; 
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+            }
+
+            .modal-content {
+                margin: auto;
+                position: relative;
+                top: 10%; /* Center vertically */
+                max-width: 410px;  
+            }
+        </style>
+
+
+        <!--============= JavaScript for Modal =====================-->
+        <script>
+
+            //------------------ Connect modals ---------------??
+
+            const checkNowButton = document.getElementById("checkNowButton");
+
+            //----------Sign In--------//
+            const signinModal = document.getElementById("signinModal");
+            const signinButton = document.getElementById("signinButton");
+            const goToSignup = document.getElementById("goToSignup");
+            
+            //----------Sign Up--------//
+            const signupModal = document.getElementById("signupModal");
+            const signupButton = document.getElementById("signupButton");
+            const goToSignin = document.getElementById("goToSignin");
+            const yesButton = document.getElementById("yesButton");
+            const noButton = document.getElementById("noButton");
+
+
+            //-----Teacher Sign Up-----//
+            const teacherSignUpModal = document.getElementById("teacherSignUpModal");
+            const teacherGoToStudent = document.getElementById("teacherGoToStudent");
+            const teacherGoToSignin = document.getElementById("teacherGoToSignin");
+            
+            //-----Student Sign Up-----//
+            const studentSignUpModal = document.getElementById("studentSignUpModal");
+            const studentGoToTeacher = document.getElementById("studentGoToTeacher");
+            const studentGoToSignin = document.getElementById("studentGoToSignin");
+
+
+            //------Home swaps----//
+            signinButton.onclick = function() {
+                signinModal.style.display = "block";
+            };
+
+            signupButton.onclick = function() {
+                signupModal.style.display = "block";
+            };
+
+            checkNowButton.onclick = function() {
+                signinModal.style.display = "block";
+            };
+
+
+            //------Sign In swaps----//
+            goToSignup.onclick = function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                signinModal.style.display = "none"; // Close Sign In Modal
+                signupModal.style.display = "block"; // Open Sign Up Modal
+            };
+
+            //------Sign up swaps----//
+            goToSignin.onclick = function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                signupModal.style.display = "none"; // Close Sign Up Modal
+                signinModal.style.display = "block"; // Open Sign In Modal
+            };
+
+            yesButton.onclick = function() {
+                signupModal.style.display = "none"; // Close Sign Up Modal
+                teacherSignUpModal.style.display = "block"; // Open Teacher Sign Up Modal
+            };
+
+            noButton.onclick = function() {
+                signupModal.style.display = "none"; // Close Sign Up Modal
+                studentSignUpModal.style.display = "block"; // Open Teacher Sign Up Modal
+            };
+            
+            //-----teacher's swaps---//
+            teacherGoToSignin.onclick = function(event) {
+                event.preventDefault();
+                teacherSignUpModal.style.display = "none";
+                signinModal.style.display = "block";
+            };
+
+            teacherGoToStudent.onclick = function(event) {
+                event.preventDefault();
+                teacherSignUpModal.style.display = "none";
+                studentSignUpModal.style.display = "block";
+            }
+
+            //-----student's swaps---//
+            studentGoToSignin.onclick = function(event){
+                event.preventDefault();
+                studentSignUpModal.style.display = "none"
+                signinModal.style.display = "block";
+            }
+
+            studentGoToTeacher.onclick = function(event){
+                event.preventDefault();
+                studentSignUpModal.style.display = "none";
+                teacherSignUpModal.style.display = "block";
+            }
+            
+            
+           
+            //------------ Close modal with click outside ----------------//
+            window.onclick = function(event) {
+                if (event.target === signinModal) {
+                    signinModal.style.display = "none";
+                    history.pushState({}, '', '/');
+                }
+
+                if (event.target === signupModal) {
+                    signupModal.style.display = "none";
+                    history.pushState({}, '', '/');
+                }
+
+                if (event.target === teacherSignUpModal) {
+                    teacherSignUpModal.style.display = "none";
+                    history.pushState({}, '', '/');
+                }
+
+                if (event.target === studentSignUpModal) {
+                    studentSignUpModal.style.display = "none";
+                    history.pushState({}, '', '/');
+                }
+            };
+
+
+            //---------------- to reopen modal when someone makes a mistake -----------------//
+            document.addEventListener("DOMContentLoaded", function () {
+                const showModal = "{{ show_modal }}";
+                if (showModal === "teacher") {
+                    document.getElementById("teacherSignUpModal").style.display = "block";
+                } else if (showModal === "student") {
+                    document.getElementById("studentSignUpModal").style.display = "block";
+                } else if (showModal === "signIn") {
+                    document.getElementById("signinModal").style.display = "block";
+                }
+                
+            });
+
+            // Function to clear error messages in all modals
+            function clearErrorMessage() {
+                const errorMessageContainers = document.querySelectorAll('.simple-message-container');
+                errorMessageContainers.forEach(container => {
+                    container.innerHTML = ''; // Clear the error message
+                });
+            }
+
+            // Event listener for modal closing or switching
+            window.onclick = function(event) {
+                const modals = document.querySelectorAll('.modal');
+                
+                // Close modal when clicking outside of the modal content
+                modals.forEach(modal => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none'; // Close the modal
+                        clearErrorMessage(); // Clear the error messages when the modal is closed
+                    }
+                });
+
+                // Switch modals (e.g., Sign Up -> Sign In or Teacher -> Student)
+                const switchTriggers = document.querySelectorAll('[data-switch-modal]');
+                switchTriggers.forEach(trigger => {
+                    if (event.target === trigger) {
+                        const targetModalId = trigger.getAttribute('data-switch-modal');
+                        const targetModal = document.getElementById(targetModalId);
+                        
+                        // Hide all modals first
+                        modals.forEach(modal => {
+                            modal.style.display = 'none';
+                        });
+                        
+                        // Clear the error message
+                        clearErrorMessage();
+                        
+                        // Show the target modal
+                        targetModal.style.display = 'block';
+                    }
+                });
+            };
+
+        </script>
+    </body>
+</html>
