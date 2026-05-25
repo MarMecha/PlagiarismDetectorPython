@@ -175,19 +175,18 @@ http://127.0.0.1:8000/
 
 ### Home Page
 
-(Add screenshot)
+<img width="1896" height="857" alt="image" src="https://github.com/user-attachments/assets/e6d53975-7931-41a0-b713-4d6b31d8ac5b" />
+
 
 ### Upload Documents
 
-(Add screenshot)
+<img width="1897" height="861" alt="image" src="https://github.com/user-attachments/assets/43207739-ef98-4733-90cb-cdc11ce2ed4a" />
+
 
 ### Results
 
-(Add screenshot)
+<img width="1714" height="744" alt="image" src="https://github.com/user-attachments/assets/599081d5-3201-44cb-ae87-3e35d79adc77" />
 
-### Highlighted PDF Output
-
-(Add screenshot)
 
 ---
 
